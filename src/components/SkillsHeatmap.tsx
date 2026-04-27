@@ -104,7 +104,17 @@ function RecommendationCard({
     .sort((a, b) => b.covered - a.covered)
     .slice(0, 2)
 
-  const upskillNeeds = gaps.filter((s) => candidates.every((c) => c.covered === 0 || !c.skills[s]))
+  const unassignedConsultants = consultants.filter((c) => !pursuit.assignedConsultants.includes(c.id))
+  const upskillNeeds = gaps.filter((s) => {
+    const hasBeginnerCoverage = unassignedConsultants.some(
+      (c) => LEVEL_SCORE[c.skills[s] ?? 'None'] === 2,
+    )
+    const hasProficientCoverage = unassignedConsultants.some(
+      (c) => LEVEL_SCORE[c.skills[s] ?? 'None'] >= 3,
+    )
+
+    return hasBeginnerCoverage && !hasProficientCoverage
+  })
   const partnerNeeded = gaps.filter(
     (s) => !consultants.some((c) => LEVEL_SCORE[c.skills[s] ?? 'None'] >= 3),
   )
@@ -235,7 +245,12 @@ export default function SkillsHeatmap() {
 
   const displayMatrix =
     filterCoverage === 'Gaps Only'
-      ? matrix.filter((row) => gapsByPursuit.find((g) => g.pursuit.id === row.pursuit.id)?.gaps.length ?? 0 > 0)
+      ? matrix.filter((row) => {
+          const gapCount =
+            gapsByPursuit.find((g) => g.pursuit.id === row.pursuit.id)?.gaps.length ?? 0
+
+          return gapCount > 0
+        })
       : matrix
 
   // Pool strength per skill

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, type ReactNode } from 'react'
 import { LayoutGrid, ChevronRight, DollarSign, Users, Clock, Zap, Shield, Scale } from 'lucide-react'
 import { ALL_CAPABILITIES, ALL_PLATFORMS, ALL_INDUSTRIES, ROLE_TEMPLATES } from '../data/mockData'
 
@@ -19,7 +19,7 @@ interface TeamOption {
   id: 'lean' | 'balanced' | 'specialist'
   label: string
   tagline: string
-  icon: React.ReactNode
+  icon: ReactNode
   color: string
   roles: { title: string; seniority: string; fte: number; weeklyRate: number }[]
   strengths: string[]

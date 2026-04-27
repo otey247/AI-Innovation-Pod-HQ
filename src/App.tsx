@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { LayoutGrid, BarChart3, Users } from 'lucide-react'
 import PodConfigurator from './components/PodConfigurator'
 import SkillsHeatmap from './components/SkillsHeatmap'
@@ -6,7 +6,7 @@ import ConsultantMarketplace from './components/ConsultantMarketplace'
 
 type Tab = 'configurator' | 'heatmap' | 'marketplace'
 
-const TABS: { id: Tab; label: string; icon: React.ReactNode; desc: string }[] = [
+const TABS: { id: Tab; label: string; icon: ReactNode; desc: string }[] = [
   {
     id: 'configurator',
     label: 'Pod Staffing Configurator',

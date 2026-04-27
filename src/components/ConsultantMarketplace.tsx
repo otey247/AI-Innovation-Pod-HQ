@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, type Dispatch, type SetStateAction } from 'react'
 import {
   Users,
   Search,
@@ -500,7 +500,7 @@ export default function ConsultantMarketplace() {
   const handleSkillToggle = (
     skill: string,
     type: 'requiredSkills' | 'niceToHaveSkills',
-    setter: React.Dispatch<React.SetStateAction<Omit<OpportunityNeed, 'id'>>>,
+    setter: Dispatch<SetStateAction<Omit<OpportunityNeed, 'id'>>>,
   ) => {
     setter((prev) => ({
       ...prev,
